@@ -1,0 +1,1 @@
+export { useGetPostQuery } from "./useGetPostQuery";
