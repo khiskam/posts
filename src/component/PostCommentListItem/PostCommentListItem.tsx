@@ -9,9 +9,12 @@ import Typography from "@mui/material/Typography";
 import { FC } from "react";
 
 import { stringAvatar } from "./helpers";
-import { CommentListItemProps } from "./types";
+import { PostCommentListItemProps } from "./types";
 
-const CommentListItem: FC<CommentListItemProps> = ({ comment, divider }) => {
+const CommentListItem: FC<PostCommentListItemProps> = ({
+  comment,
+  divider,
+}) => {
   return (
     <>
       <ListItem alignItems="flex-start">

@@ -8,26 +8,21 @@ import Typography from "@mui/material/Typography";
 
 import { useGetPostsQuery } from "@/api/hook/useGetPostsQuery";
 import { PostCard } from "@/component/PostCard";
-import Spinner from "@/component/Spinner";
 import { LIMIT } from "@/constant";
-import { usePage } from "@/hook/usePage";
 import { usePostStore } from "@/store/PostStore";
 
 import withContainer from "../withContainer";
-import { DEFAULT_PAGE } from "./constants";
+import { usePage } from "./hook";
 
 const PostsList = () => {
-  const [page, setPage] = usePage(DEFAULT_PAGE);
+  const { page, setPage } = usePage();
+
   const { page: pageCount } = usePostStore(({ page }) => ({ page }));
 
-  const { data, isLoading, isError } = useGetPostsQuery(page, {
+  const { data, isError } = useGetPostsQuery(page, {
     _start: (page - 1) * LIMIT,
     _end: page * LIMIT,
   });
-
-  if (isLoading) {
-    return <Spinner />;
-  }
 
   if (isError) {
     return (
@@ -37,7 +32,7 @@ const PostsList = () => {
     );
   }
 
-  if (!data?.posts || data.posts.length === 0) {
+  if (!data || data.posts.length === 0) {
     return (
       <Alert severity="info">Здесь пока нет постов. Но скоро появятся...</Alert>
     );

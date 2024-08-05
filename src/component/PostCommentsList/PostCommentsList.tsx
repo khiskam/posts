@@ -7,17 +7,12 @@ import Typography from "@mui/material/Typography";
 
 import { useGetPostCommentsQuery } from "@/api/hook/useGetPostCommentsQuery";
 
-import CommentListItem from "../CommentListItem";
-import Spinner from "../Spinner";
+import PostCommentListItem from "../PostCommentListItem";
 import withContainer from "../withContainer";
 import { PostCommentsListProps } from "./types";
 
 const PostCommentsList = ({ postId }: PostCommentsListProps) => {
-  const { data, isLoading, isError } = useGetPostCommentsQuery(postId);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
+  const { data, isError } = useGetPostCommentsQuery(postId);
 
   if (isError) {
     return (
@@ -37,7 +32,7 @@ const PostCommentsList = ({ postId }: PostCommentsListProps) => {
 
       <List>
         {data.map((comment, idx) => (
-          <CommentListItem
+          <PostCommentListItem
             comment={comment}
             divider={idx < data.length - 1}
             key={comment.id}

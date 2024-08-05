@@ -1,15 +1,30 @@
-"use client";
-
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
+import { FetchParams, fetchPost } from "@/api/lib/getPost";
+import { fetchPostComments } from "@/api/lib/getPostComments";
 import PostData from "@/component/Post";
 import PostCommentsList from "@/component/PostCommentsList";
 
-const Post = ({ params }: { params: { postId: string } }) => {
+import { PostPageProps } from "./types";
+
+const Post = async ({ params }: PostPageProps) => {
+  const queryClient = new QueryClient();
+  const fetchParams: FetchParams = { queryClient, postId: params.postId };
+
+  await fetchPost(fetchParams);
+  await fetchPostComments(fetchParams);
+
   return (
     <Stack divider={<Divider flexItem />} spacing={8} useFlexGap>
-      <PostData postId={params.postId} />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <PostData postId={params.postId} />
+      </HydrationBoundary>
       <PostCommentsList postId={params.postId} />
     </Stack>
   );

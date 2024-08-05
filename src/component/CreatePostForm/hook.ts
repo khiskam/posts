@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 
 import { useCreatePostMutation } from "@/api/hook/useCreatePostMutation";

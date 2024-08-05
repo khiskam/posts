@@ -1,3 +1,5 @@
+"use client";
+
 import Alert from "@mui/material/Alert";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
@@ -6,7 +8,6 @@ import Image from "next/image";
 import { FC } from "react";
 
 import { useGetPostQuery } from "@/api/hook/useGetPostQuery";
-import Spinner from "@/component/Spinner";
 import { IMAGE_API_URL } from "@/constant";
 
 import withContainer from "../withContainer";
@@ -15,11 +16,7 @@ import { PostProps } from "./types";
 
 const Post: FC<PostProps> = ({ postId }) => {
   const src = `${IMAGE_API_URL}?id=${postId}`;
-  const { data, isLoading, isError } = useGetPostQuery(postId);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
+  const { data, isError } = useGetPostQuery(postId);
 
   if (isError) {
     return (
