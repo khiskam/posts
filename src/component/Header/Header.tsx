@@ -10,7 +10,7 @@ const Header = () => {
       <Container>
         <Stack direction="row">
           <MuiLink href="/" component={Link} underline="none">
-            ЛОГОТИП
+            POSTS
           </MuiLink>
 
           <MuiLink href="/" component={Link} underline="none">

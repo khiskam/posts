@@ -11,9 +11,9 @@ const Footer = () => {
       <Container>
         <Stack direction="row">
           <MuiLink href="/" component={Link} underline="none">
-            ЛОГОТИП
+            POSTS
           </MuiLink>
-          <Typography>© ЛОГОТИП</Typography>
+          <Typography>© POSTS</Typography>
         </Stack>
       </Container>
     </Box>
