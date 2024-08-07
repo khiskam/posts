@@ -5,26 +5,21 @@ import Grid from "@mui/material/Grid";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import Link from "next/link";
 
 import { useGetPostsQuery } from "@/api/hook/useGetPostsQuery";
 import { PostCard } from "@/component/PostCard";
 import { LIMIT } from "@/constant";
-import { usePostStore } from "@/store/PostStore";
 
 import withContainer from "../withContainer";
 import { usePage } from "./hook";
 
 const PostsList = () => {
   const { page, setPage } = usePage();
-  const { page: pagesCount } = usePostStore(({ page }) => ({ page }));
 
   const { data, isError, isFetching } = useGetPostsQuery(page, {
     _start: (page - 1) * LIMIT,
     _end: page * LIMIT,
   });
-
-  console.log(isFetching);
 
   if (isError) {
     return (
@@ -52,12 +47,8 @@ const PostsList = () => {
         ))}
       </Grid>
 
-      {/* <Link href={"?page=1"}>1</Link>
-      <Link href={"?page=2"}>2</Link>
-      <Link href={"?page=6"}>6</Link> */}
-
       <Pagination
-        count={pagesCount}
+        count={Math.ceil(data.count / LIMIT)}
         variant="outlined"
         color="primary"
         page={page}

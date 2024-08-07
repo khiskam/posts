@@ -21,14 +21,12 @@ const Post = async ({ params }: PostPageProps) => {
   await fetchPost(fetchParams);
   await fetchPostComments(fetchParams);
 
-  const state = dehydrate(queryClient);
-
   return (
     <Stack divider={<Divider flexItem />} spacing={8} useFlexGap>
-      <HydrationBoundary state={state}>
+      <HydrationBoundary state={dehydrate(queryClient)}>
         <PostData postId={params.postId} />
       </HydrationBoundary>
-      <HydrationBoundary state={state}>
+      <HydrationBoundary state={dehydrate(queryClient)}>
         <PostCommentsList postId={params.postId} />
       </HydrationBoundary>
     </Stack>

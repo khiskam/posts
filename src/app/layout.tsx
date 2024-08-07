@@ -2,9 +2,10 @@ import { ThemeProvider } from "@mui/material/styles";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import type { Metadata } from "next";
 
-import { QueryProvider } from "@/api/QueryProvider";
 import Layout from "@/component/Layout";
 import { theme } from "@/theme";
+
+import { QueryProvider } from "./providers";
 
 export const metadata: Metadata = {
   title: "Posts",

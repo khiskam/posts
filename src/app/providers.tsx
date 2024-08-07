@@ -14,15 +14,14 @@ function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        // staleTime: Infinity,
-        // gcTime: Infinity,
+        staleTime: 60 * 5 * 1000,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
       },
     },
-    // queryCache: new QueryCache({
-    //   onError: () => useErrorStore.getState().setMessage("Произошла ошибка"),
-    // }),
+    queryCache: new QueryCache({
+      onError: () => useErrorStore.getState().setMessage("Произошла ошибка"),
+    }),
   });
 }
 
@@ -32,7 +31,10 @@ function getQueryClient() {
   if (isServer) {
     return makeQueryClient();
   } else {
-    if (!browserQueryClient) browserQueryClient = makeQueryClient();
+    if (!browserQueryClient) {
+      browserQueryClient = makeQueryClient();
+    }
+
     return browserQueryClient;
   }
 }

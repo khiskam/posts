@@ -5,10 +5,8 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import Link from "next/link";
 
 import { fetchPosts } from "@/api/lib/getPosts";
-// import { getQueryClient } from "@/api/QueryProvider/QueryProvider";
 import CreatePostForm from "@/component/CreatePostForm";
 import PostsList from "@/component/PostsList";
 
@@ -20,7 +18,6 @@ const Home = async ({ searchParams }: PageProps) => {
 
   return (
     <Stack divider={<Divider flexItem />} spacing={8} useFlexGap>
-      {/* <Link href="posts/101">101</Link> */}
       <HydrationBoundary state={dehydrate(queryClient)}>
         <PostsList />
       </HydrationBoundary>
