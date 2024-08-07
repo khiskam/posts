@@ -12,7 +12,7 @@ import withContainer from "../withContainer";
 import { PostCommentsListProps } from "./types";
 
 const PostCommentsList = ({ postId }: PostCommentsListProps) => {
-  const { data, isError } = useGetPostCommentsQuery(postId);
+  const { data, isError } = useGetPostCommentsQuery(+postId);
 
   if (isError) {
     return (

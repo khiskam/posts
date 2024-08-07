@@ -1,7 +1,9 @@
 "use client";
 
 import { yupResolver } from "@hookform/resolvers/yup";
+import Backdrop from "@mui/material/Backdrop";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useForm } from "react-hook-form";
@@ -14,7 +16,7 @@ import { PostSchema, schema } from "./schema";
 import { Box } from "./styles";
 
 const CreatePostForm = () => {
-  const onSubmit = useSubmit();
+  const { onSubmit, isPending } = useSubmit();
 
   const { handleSubmit, control } = useForm<PostSchema>({
     defaultValues: { title: "", body: "" },
@@ -49,6 +51,9 @@ const CreatePostForm = () => {
           </Button>
         </Box>
       </Stack>
+      <Backdrop open={isPending}>
+        <CircularProgress />
+      </Backdrop>
     </>
   );
 };

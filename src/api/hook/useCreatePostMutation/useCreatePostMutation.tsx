@@ -20,7 +20,7 @@ export const useCreatePostMutation = () => {
     mutationFn: createPost,
 
     onSuccess: ({ data: post }) => {
-      queryClient.setQueryData([queryKeys.post, id.toString()], post);
+      queryClient.setQueryData([queryKeys.post, id], post);
       queryClient.setQueryData(
         [queryKeys.posts, actualPage],
         (prev: PostsResponse): PostsResponse => ({

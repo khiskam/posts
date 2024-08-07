@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  isServer,
   QueryCache,
   QueryClient,
   QueryClientProvider,
@@ -9,13 +10,36 @@ import { FC, PropsWithChildren } from "react";
 
 import { useErrorStore } from "@/store/ErrorStore";
 
-export const queryClient = new QueryClient({
-  queryCache: new QueryCache({
-    onError: () => useErrorStore.getState().setMessage("Произошла ошибка"),
-  }),
-});
+function makeQueryClient() {
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        // staleTime: Infinity,
+        // gcTime: Infinity,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+      },
+    },
+    // queryCache: new QueryCache({
+    //   onError: () => useErrorStore.getState().setMessage("Произошла ошибка"),
+    // }),
+  });
+}
+
+let browserQueryClient: QueryClient | undefined = undefined;
+
+function getQueryClient() {
+  if (isServer) {
+    return makeQueryClient();
+  } else {
+    if (!browserQueryClient) browserQueryClient = makeQueryClient();
+    return browserQueryClient;
+  }
+}
 
 export const QueryProvider: FC<PropsWithChildren> = ({ children }) => {
+  const queryClient = getQueryClient();
+
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );

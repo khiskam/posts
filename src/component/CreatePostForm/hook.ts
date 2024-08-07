@@ -9,7 +9,7 @@ import { usePostStore } from "@/store/PostStore";
 import { PostSchema } from "./schema";
 
 export const useSubmit = () => {
-  const { mutateAsync } = useCreatePostMutation();
+  const { mutateAsync, isPending } = useCreatePostMutation();
   const router = useRouter();
   const { id } = usePostStore(({ id }) => ({ id }));
 
@@ -23,5 +23,5 @@ export const useSubmit = () => {
     }
   };
 
-  return onSubmit;
+  return { onSubmit, isPending };
 };

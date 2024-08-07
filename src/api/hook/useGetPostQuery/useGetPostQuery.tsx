@@ -5,9 +5,7 @@ import { queryKeys } from "@/api/queryKeys";
 
 export const useGetPostQuery = (id: string) => {
   return useQuery({
-    queryFn: () => getPost(id),
-    queryKey: [queryKeys.post, id],
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
+    queryFn: () => getPost(+id),
+    queryKey: [queryKeys.post, +id],
   });
 };

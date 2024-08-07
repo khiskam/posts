@@ -6,6 +6,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
+// import { getQueryClient } from "@/api/getQueryClient";
 import { FetchParams, fetchPost } from "@/api/lib/getPost";
 import { fetchPostComments } from "@/api/lib/getPostComments";
 import PostData from "@/component/Post";
@@ -15,17 +16,21 @@ import { PostPageProps } from "./types";
 
 const Post = async ({ params }: PostPageProps) => {
   const queryClient = new QueryClient();
-  const fetchParams: FetchParams = { queryClient, postId: params.postId };
+  const fetchParams: FetchParams = { queryClient, postId: +params.postId };
 
   await fetchPost(fetchParams);
   await fetchPostComments(fetchParams);
 
+  const state = dehydrate(queryClient);
+
   return (
     <Stack divider={<Divider flexItem />} spacing={8} useFlexGap>
-      <HydrationBoundary state={dehydrate(queryClient)}>
+      <HydrationBoundary state={state}>
         <PostData postId={params.postId} />
       </HydrationBoundary>
-      <PostCommentsList postId={params.postId} />
+      <HydrationBoundary state={state}>
+        <PostCommentsList postId={params.postId} />
+      </HydrationBoundary>
     </Stack>
   );
 };
