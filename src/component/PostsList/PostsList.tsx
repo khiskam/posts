@@ -1,6 +1,7 @@
 "use client";
 
 import Alert from "@mui/material/Alert";
+import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
@@ -16,10 +17,18 @@ import { usePage } from "./hook";
 const PostsList = () => {
   const { page, setPage } = usePage();
 
-  const { data, isError, isFetching } = useGetPostsQuery(page, {
+  const { data, isError, isLoading } = useGetPostsQuery(page, {
     _start: (page - 1) * LIMIT,
     _end: page * LIMIT,
   });
+
+  if (isLoading) {
+    return (
+      <Stack alignItems="center">
+        <CircularProgress />
+      </Stack>
+    );
+  }
 
   if (isError) {
     return (
