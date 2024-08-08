@@ -6,7 +6,6 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
-// import { getQueryClient } from "@/api/getQueryClient";
 import { FetchParams, fetchPost } from "@/api/lib/getPost";
 import { fetchPostComments } from "@/api/lib/getPostComments";
 import PostData from "@/component/Post";

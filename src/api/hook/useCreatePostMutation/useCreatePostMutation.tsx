@@ -2,16 +2,17 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { createPost } from "@/api/lib/createPost";
 import { queryKeys } from "@/api/queryKeys";
-import { NEW_POST_ID } from "@/constant/constant";
+import { usePostStore } from "@/store/PostStore";
 
 export const useCreatePostMutation = () => {
   const queryClient = useQueryClient();
+  const id = usePostStore(({ id }) => id);
 
   return useMutation({
     mutationFn: createPost,
 
     onSuccess: ({ data: post }) => {
-      queryClient.setQueryData([queryKeys.post, NEW_POST_ID], post);
+      queryClient.setQueryData([queryKeys.post, id], post);
     },
   });
 };

@@ -1,9 +1,11 @@
 import MuiTextField from "@mui/material/TextField";
+import { useId } from "react";
 import { FieldValues, useController } from "react-hook-form";
 
 import { TextFieldProps } from "./types";
 
 const TextField = <T extends FieldValues>(props: TextFieldProps<T>) => {
+  const id = useId();
   const { name, control, ...fieldProps } = props;
   const {
     field,
@@ -17,6 +19,7 @@ const TextField = <T extends FieldValues>(props: TextFieldProps<T>) => {
     <MuiTextField
       {...fieldProps}
       {...field}
+      id={id}
       helperText={error?.message}
       error={!!error}
     />

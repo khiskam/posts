@@ -10,7 +10,7 @@ import { FC, PropsWithChildren } from "react";
 
 import { useErrorStore } from "@/store/ErrorStore";
 
-function makeQueryClient() {
+const makeQueryClient = () => {
   return new QueryClient({
     defaultOptions: {
       queries: {
@@ -23,11 +23,11 @@ function makeQueryClient() {
       onError: () => useErrorStore.getState().setMessage("Произошла ошибка"),
     }),
   });
-}
+};
 
 let browserQueryClient: QueryClient | undefined = undefined;
 
-function getQueryClient() {
+const getQueryClient = () => {
   if (isServer) {
     return makeQueryClient();
   } else {
@@ -37,7 +37,7 @@ function getQueryClient() {
 
     return browserQueryClient;
   }
-}
+};
 
 export const QueryProvider: FC<PropsWithChildren> = ({ children }) => {
   const queryClient = getQueryClient();

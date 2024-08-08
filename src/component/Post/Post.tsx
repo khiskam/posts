@@ -16,7 +16,7 @@ import { PostProps } from "./types";
 
 const Post: FC<PostProps> = ({ postId }) => {
   const src = `${IMAGE_API_URL}?id=${postId}`;
-  const { data, isError } = useGetPostQuery(postId);
+  const { data, isError } = useGetPostQuery(+postId);
 
   if (isError) {
     return (
