@@ -17,18 +17,10 @@ import { usePage } from "./hook";
 const PostsList = () => {
   const { page, setPage } = usePage();
 
-  const { data, isError, isLoading } = useGetPostsQuery(page, {
+  const { data, isError } = useGetPostsQuery(page, {
     _start: (page - 1) * LIMIT,
     _end: page * LIMIT,
   });
-
-  if (isLoading) {
-    return (
-      <Stack alignItems="center">
-        <CircularProgress />
-      </Stack>
-    );
-  }
 
   if (isError) {
     return (

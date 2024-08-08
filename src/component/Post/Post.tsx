@@ -17,7 +17,15 @@ import { PostProps } from "./types";
 
 const Post: FC<PostProps> = ({ postId }) => {
   const src = `${IMAGE_API_URL}?id=${postId}`;
-  const { data, isError } = useGetPostQuery(+postId);
+  const { data, isError, isLoading } = useGetPostQuery(+postId);
+
+  if (isLoading) {
+    return (
+      <Stack alignItems="center">
+        <CircularProgress />
+      </Stack>
+    );
+  }
 
   if (isError) {
     return (
